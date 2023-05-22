@@ -1,0 +1,23 @@
+.nn-lang{
+    position:absolute;
+    top:0px;
+    right:0px;
+    color:azure;
+}
+
+#grad1 {
+    
+    background-color: black; /* For browsers that do not support gradients */
+    background-image: linear-gradient(to left, #121e26, #4973f2);
+    color:azure;
+  }
+
+.nn-search{
+    position:absolute;
+    bottom:12px;
+    right: 35px;
+    color:azure;
+}
+.nn-header{
+    position: relative;
+}
