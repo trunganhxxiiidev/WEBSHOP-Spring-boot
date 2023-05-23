@@ -3,6 +3,7 @@ package ta.webshop.jpa.dao;
 import java.util.List;
 
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,4 +44,7 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 
 	@Query("SELECT p FROM Product p WHERE p.category.id=?1")
 	Page<Product> findAllByCategoryId(int id, Pageable pageable);
+
+	@Query("SELECT p FROM Product p WHERE CONCAT(p.name, ' ', p.category.name, ' ',p.category.nameVn) LIKE %?1%")
+	Page<Product> findByName(String keyword, Pageable pageable);
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/shared/layout::dynamic(~{::view})}">
+<main th:fragment="view">
+    <div class="row">
+        <div th:each=" p: ${itemsOfPage.content}" class="col-4 mb-3">
+
+            <div class="card">
+                <div class="card-header" th:text="${p.name}">header</div>
+                <div class="card-body text-center">
+                    <img th:src="@{|/images/items/${p.image}|}" alt="" class="nn-item">
+                    </span>
+                </div>
+                <div class="card-footer" id="card-items">
+                    <span>Giá: </span>
+                    <span th:text="${p.unitPrice}" class="card-footer-unitPrice"> </span> $  
+                    <span style="color:red"> Duy nhất hôm nay!</span>
+
+                    <div class="card-footer-btn">
+                        <button class="btn btn-sm btn-success btn-cart-add">Thêm vào giỏ hàng
+                            <i class='bx bx-cart-add'></i>
+                        </button>
+                        <button class="btn btn-sm btn-success">
+                            <i class='bx bxs-like'></i>
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container card-footer text-center card-footer-paging" th:with="pageNumber=${itemsOfPage.number},totalPages=${itemsOfPage.totalPages},kw=${param.keyword}">
+        <!-- <div class="paging-card-action">
+            <a th:href="@{|?p=0|}">Trang đầu</a>
+            <a th:unless="${itemsOfPage.first}" th:href="@{|?p=${pageNumber-1}|}">Trang trước</a>
+            <a th:unless="${itemsOfPage.last}" th:href="@{|?p=${pageNumber+1}|}">Trang sau</a>
+            <a th:href="@{|?p=${totalPages-1}|}">Trang cuối</a>
+            <button type="button" class="btn btn-outline-secondary">Secondary</button>
+        </div> -->
+        <div class="btn-group paging-card-action ">
+            <button type="button" class="btn btn-outline-secondary"><a th:href="@{|?p=0&keyword=${kw}|}"><i class='bx bx-first-page bx-sm'></i> Trang đầu </a></button>
+            <button type="button"  th:unless="${itemsOfPage.first}" class="btn btn-outline-secondary"> <a th:href="@{|?p=${pageNumber-1}&keyword=${kw}|}"><i class='bx bx-skip-previous bx-sm' ></i>Trang trước</a> </button>
+            <button type="button" th:unless="${itemsOfPage.last}"  class="btn btn-outline-secondary"><a th:href="@{|?p=${pageNumber+1}&keyword=${kw}|}">Trang sau <i class='bx bx-skip-next bx-sm' ></i></a></button>
+            <button type="button" class="btn btn-outline-secondary"><a th:href="@{|?p=${totalPages-1}|}">Trang cuối <i class='bx bx-last-page bx-sm' ></i></a></button>
+          </div>
+        <div  class="paging-card-info" >
+            <span th:text="${itemsOfPage.number+1}"></span> of
+            <span th:text="${itemsOfPage.totalPages} "></span> pages
+        </div>
+
+    </div>
+
+</main>
+
+</html>

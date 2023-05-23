@@ -1,3 +1,6 @@
+:root{
+    --midnight-blue:#101356;
+}
 .nn-lang{
     position:absolute;
     top:0px;
@@ -8,7 +11,7 @@
 #grad1 {
     
     background-color: black; /* For browsers that do not support gradients */
-    background-image: linear-gradient(to left, #121e26, #4973f2);
+    background-image: linear-gradient(to left, #0d171e, #4973f2);
     color:azure;
   }
 
@@ -20,4 +23,42 @@
 }
 .nn-header{
     position: relative;
+}
+#menu{
+    background-color: #223747 !important ;
+    background-image: linear-gradient(to right, #0d171e, #4973f2);
+}
+
+#product-size{
+    float: right;
+}
+/* .card-footer-unitPrice{
+    float: left !important;
+} */
+.card-footer-btn{
+    float: right !important;
+}
+
+.nn-item{
+    height: 150px;
+    max-width: 98%;
+}
+
+.paging-card-action{
+    float: left !important;
+    
+}
+.paging-card-info{
+    float: right !important;
+}
+.card-footer-paging{
+    background-image: linear-gradient(to top right,#0d171e, #4973f2);
+    display: inline-block;
+    color: #9b9da3;
+    background-color: #0d171e;
+    max-width: 100%;
+    border: 0;
+}
+.btn-cart-add{
+    background-color: #101356 !important;
 }

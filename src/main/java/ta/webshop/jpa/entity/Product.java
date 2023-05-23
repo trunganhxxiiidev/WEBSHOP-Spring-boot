@@ -28,7 +28,7 @@ public class Product {
 	@Column(name = "unitprice")
 	Double unitPrice;
 	Integer quantity;
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "categoryid")
 	Category category;
 	Double discount;
