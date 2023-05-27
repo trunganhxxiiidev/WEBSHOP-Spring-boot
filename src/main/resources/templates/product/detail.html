@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/shared/layout::dynamic(~{::view})}">
+    <main th:fragment="view">
+        <div class="row product-detail">
+            <div class="col-5 text-center">
+                <img th:src="@{|/images/items/${item.image}|}">
+            </div>
+            <div class="col-7" >
+                <ul>
+                    <li>
+                        <b>Product id:</b>
+                        <i th:text="${item.id}"></i>
+                    </li>
+                    <li>
+                        <b>Product Name:</b>
+                        <i th:text="${item.name}"></i>
+                    </li>
+                    <li>
+                        <b>Unit Price:</b>
+                        <i th:text="${item.unitPrice}"></i>
+                    </li>
+                    <li>
+                        <b>Discount:</b>
+                        <i th:text="${item.discount*100}"></i>%
+                    </li>
+                    <li>
+                        <b>Số lượng còn lại:</b>
+                        <i th:text="${item.quantity}"></i>
+                    </li>
+                    <li>
+                        <b> Ngày nhập sản phẩm: </b>
+                        <i th:text="${item.createDate}"></i>
+                    </li>
+                    <li>
+                        <b> Loại sản phẩm: </b>
+                        <i th:text="${item.category.nameVn}"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Xem thêm</div>
+            <div class="card-body card-thumb">
+                <th:block th:each="p: ${item.category.products}">
+                 
+                      <a th:href="@{|/product/detail/${p.id}|}"> <img 
+                        th:src="@{|/images/items/${p.image}|}" alt=""></a>
+
+                </th:block>  
+            </div>
+        </div>
+        <div>
+            <br>
+        </div>
+        <div class="card">
+            <div class="card-header">Chia sẻ ngay tới bạn bè qua email</div>
+            <div class="card-body" th:attr="data-id=${item.id}">
+                <button class="btn btn-sm btn-success btn-share"
+                 data-bs-toggle="modal" data-bs-target="#share-dialog" >
+                    <i class='bx bxs-share '></i>
+                </button>  
+            </div>
+        </div>
+        <div th:replace="/product/share-dialog.html"  >
+
+        </div>
+    </main>
+</html>

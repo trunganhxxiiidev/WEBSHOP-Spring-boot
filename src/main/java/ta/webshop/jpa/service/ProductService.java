@@ -16,4 +16,16 @@ public interface ProductService {
 
 	Page<Product> findByName(String keyword, Pageable pageable);
 
+	Page<Product> findByBest(Pageable pageable);
+
+	Page<Product> findByDiscount(Pageable pageable);
+
+	Page<Product> findByLikes(Pageable pageable);
+
+	Page<Product> findByLatest(Pageable pageable);
+
+	Product findById(Integer id);
+
+	void update(Product product);
+
 }

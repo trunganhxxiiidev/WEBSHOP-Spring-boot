@@ -62,3 +62,27 @@
 .btn-cart-add{
     background-color: #101356 !important;
 }
+
+.product-detail ul li{
+    line-height: 40px;
+   
+    border-bottom: dotted ;
+    
+}
+
+.product-detail img {
+    height: 300px;
+    max-width: 100%;
+}
+.card-thumb img{
+    width: 80px;
+    height: 80px;
+    margin: 5px;
+    border: #0d171e;
+    border-radius: 3px;
+    box-shadow: 0 0 5px gray;
+}
+
+.card-thumb img:hover{
+    box-shadow: 0 0 7px #2475b4;
+}

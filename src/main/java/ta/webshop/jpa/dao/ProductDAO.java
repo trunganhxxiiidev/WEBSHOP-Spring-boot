@@ -47,4 +47,24 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 
 	@Query("SELECT p FROM Product p WHERE CONCAT(p.name, ' ', p.category.name, ' ',p.category.nameVn) LIKE %?1%")
 	Page<Product> findByName(String keyword, Pageable pageable);
+	
+	@Query("SELECT p FROM Product p  ORDER BY  p.createDate DESC")
+	Page<Product> findByBest(Pageable pageable);
+
+	@Query("SELECT p FROM Product p WHERE p.discount>0 ORDER BY p.discount DESC")
+	Page<Product> findByDiscount(Pageable pageable);
+
+	@Query("SELECT p FROM Product p WHERE p.likeCount>0 ORDER BY p.likeCount DESC")
+	Page<Product> findByLikes(Pageable pageable);
+
+	@Query("SELECT p FROM Product p  ORDER BY  p.createDate DESC")
+	Page<Product> findByLatest(Pageable pageable);
+	
+	@Query("SELECT d.product.id From OrderDetail d"
+			+ " GROUP BY d.product.id"
+			+ " ORDER BY sum(d.unitPrice*d.quantity*(1-d.discount))")
+	List<Integer> findByBestIds(Pageable pageable);
+
+	@Query("SELECT p from Product p WHERE p.id IN ?1")
+	Page<Product> findAllByIds(List<Integer> ids, Pageable pageable);
 }

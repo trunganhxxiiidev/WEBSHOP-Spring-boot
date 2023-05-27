@@ -7,10 +7,11 @@
             <div class="card">
                 <div class="card-header" th:text="${p.name}">header</div>
                 <div class="card-body text-center">
+                    <a th:href="@{|/product/detail/${p.id}|}">
                     <img th:src="@{|/images/items/${p.image}|}" alt="" class="nn-item">
-                    </span>
+                    </a>    
                 </div>
-                <div class="card-footer" id="card-items">
+                <div class="card-footer" id="card-items" th:attr="data-id=${p.id}">
                     <span>Giá: </span>
                     <span th:text="${p.unitPrice}" class="card-footer-unitPrice"> </span> $  
                     <span style="color:red"> Duy nhất hôm nay!</span>
@@ -19,10 +20,9 @@
                         <button class="btn btn-sm btn-success btn-cart-add">Thêm vào giỏ hàng
                             <i class='bx bx-cart-add'></i>
                         </button>
-                        <button class="btn btn-sm btn-success">
+                        <button class="btn btn-sm btn-success ww-like" >
                             <i class='bx bxs-like'></i>
-                        </button>
-                        
+                        </button>     
                     </div>
                 </div>
             </div>
