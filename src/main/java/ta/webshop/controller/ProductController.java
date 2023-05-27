@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import ta.webshop.jpa.entity.Product;
 import ta.webshop.jpa.service.ProductService;
+import ta.webshop.service.MailService;
 
 @Controller
 public class ProductController {
@@ -100,6 +102,16 @@ public class ProductController {
 		return product.getLikeCount();
 	}
 	
+	@Autowired
+	MailService mailService;
+
+	@ResponseBody
+	@RequestMapping("product/send")
+	public Object send(@RequestParam("id") Integer id,
+			@RequestParam("email") String email) {
+	mailService.sendProduct(email, id);
+		return "ok";
+	}
 	
 	
 }

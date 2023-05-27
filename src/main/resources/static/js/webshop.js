@@ -8,21 +8,21 @@ $(document).ready(function(){
 
     });
 
-    // $(".btn-share").click(function(){
-    //     data_id=$(this).closest("[data-id]").attr("data-id");
-    //     console.log(data_id)
-    // });
+    $(".btn-share").click(function(){
+        data_id=$(this).closest("[data-id]").attr("data-id");
+        console.log(data_id)
+    });
 
-    // $(".btn-send").click(function(){
-    //     var data={
-    //         id: data_id,
-    //         email: $("#email").val()
-    //     }
-        //console.log(data);
-        // var url= `/product/send`;
-        // $.post(url,data).then(resp=>{
-        //     alert(resp)
-        // })
-   // })
+    $(".btn-send").click(function(){
+        var data={
+            id: data_id,
+            email: $("#email").val()
+        }
+        console.log(data);
+        var url= `/product/send`;
+        $.post(url,data).then(resp=>{
+            alert(resp)
+        })
+   })
     
 })
