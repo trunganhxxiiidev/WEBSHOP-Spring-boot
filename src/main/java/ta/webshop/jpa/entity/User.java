@@ -2,6 +2,7 @@ package ta.webshop.jpa.entity;
 
 import java.util.List;
 
+
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -31,4 +32,8 @@ public class User {
 	
 	@OneToMany(mappedBy = "user")
 	List<UserRole> userRoles;
+
+	public boolean isEnabled() {
+		return getEnabled();
+	}
 }

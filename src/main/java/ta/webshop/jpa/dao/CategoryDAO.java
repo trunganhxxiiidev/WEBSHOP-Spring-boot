@@ -8,3 +8,4 @@ import ta.webshop.jpa.entity.Category;
 public interface CategoryDAO extends JpaRepository<Category, Integer>{
 
 }
+ 

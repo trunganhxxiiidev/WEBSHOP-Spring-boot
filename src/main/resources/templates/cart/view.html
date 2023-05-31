@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/shared/layout2::dynamic(~{::view})}">
+<main th:fragment="view">
+  <section class="h-100 gradient-custom container">
+    <div class="container py-5">
+      <div class="row d-flex justify-content-center my-4">
+        <div class="col-md-8">
+          <div class="card mb-4">
+            <div class="card-header py-3">
+              <h5 class="mb-0 cartLogo">Giỏ hàng </h5>
+              <a href="/cart/clear">
+                <button type="button" class="btn btn-danger btn-sm me-1 mb-2 remove-all-item" data-mdb-toggle="tooltip"
+                  title="Xoá tất cả ">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </a>
+            </div>
+            <div class="card-body" th:each="item: ${cart.items}" th:attr="data-id=${item.id},data-amount=${item.getAmount()},data-price=${item.price},data-discount=${item.discount}">
+              <!-- Single item -->
+              <div class="row">
+                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                  <!-- Image -->
+                  <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                    <img th:src="@{|/images/items/${item.img}|}" class="w-100" alt="Blue Jeans Jacket" />
+                    <a href="#!">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                    </a>
+                  </div>
+                  <!-- Image -->
+                </div>
+
+                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                  <!-- Data -->
+                  <p><strong th:text="${item.name}"></strong></p>
+                  Giá gốc: <span th:text="${item.price}"></span> $ <br>
+                  Mã sản phẩm: <span th:text="${item.id}"> </span> <br>
+                  Giảm giá: <span th:text="${item.discount*100}"></span>% <br>
+                  <button type="button" class="btn btn-secondary btn-sm me-1 mb-2 btn-cart-remove-item"
+                    data-mdb-toggle="tooltip" title="Xoá sản phẩm">
+                    <i class="fas fa-trash"></i>
+                  </button>
+
+                  <!-- Data -->
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                  <!-- Quantity -->
+                  <div class="d-flex mb-4" style="max-width: 300px">
+                    <button class="btn btn-primary px-3 me-2 "
+                      onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                      <i class="fas fa-minus"></i>
+                    </button>
+
+                    <div class="form-outline">
+                      <input class="form-control cart-update" id="form1" min="0" name="quantity" th:value="${item.quantity}" type="number"/>
+                      <label class="form-label " for="form1">Quantity</label>
+
+                    </div>
+
+                    <button class="btn btn-primary px-3 ms-2 "
+                      onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                  <!-- Quantity -->
+
+                  <!-- Price  -->
+                  <p class="text-start text-md-center">
+                    <span>Giá hiện tại </span><strong th:text="${item.getAmount()}" id="getamount" class="item-amount"></strong>$
+                  </p>
+                  <!-- Price -->
+                </div>
+              </div>
+              <!-- Single item -->
+
+              <hr class="my-4" />
+
+
+              <!-- Single item -->
+            </div>
+          </div>
+          <div class="card mb-4">
+            <div class="card-body">
+              <p><strong>Expected shipping delivery</strong></p>
+              <p class="mb-0">12.10.2020 - 14.10.2020</p>
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body">
+              <p><strong>We accept</strong></p>
+              <img class="me-2" width="45px"
+                src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                alt="Visa" />
+              <img class="me-2" width="45px"
+                src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                alt="American Express" />
+              <img class="me-2" width="45px"
+                src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                alt="Mastercard" />
+              <img class="me-2" width="45px"
+                src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"
+                alt="PayPal acceptance mark" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-header py-3">
+              <h5 class="mb-0">Summary</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  Tổng số lượng sản phẩm
+                  <span id="total-number-products"></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                  Tổng tiền
+                  <span id="cart-checkout" class="total-amount-checkout">$53.98</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                  Shipping
+                  <span> Free</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                  <div>
+                    <strong>Tổng tiền cần thanh toán</strong>
+                    <strong>
+                      <p class="mb-0">(Đã bao gồm thuế)</p>
+                    </strong>
+                  </div>
+                  <span><strong class="total-amount-checkout">$53.98</strong></span>
+                </li>
+              </ul>
+
+              <button type="button" class="btn btn-primary btn-lg btn-block"  onclick="location.href='/order/checkout'"> Go to checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+</html>
