@@ -22,7 +22,7 @@ public class userDetailsServiceImpl implements UserDetailsService{
 			return  new  UserDetailImpl(user);
 		} catch (UsernameNotFoundException e) {
 			throw new UsernameNotFoundException(username+" not found");
-			// TODO: handle exception
+			
 		}
 	}
 	

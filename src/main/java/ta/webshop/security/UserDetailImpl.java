@@ -17,14 +17,14 @@ import ta.webshop.jpa.entity.UserRole;
 @Data
 
 @NoArgsConstructor
-
+@AllArgsConstructor
 
 public class UserDetailImpl implements UserDetails {
 	 User user;
 	
-	public UserDetailImpl(User user) {
-		this.user=user;
-	}
+	//  public UserDetailImpl(User user) {
+	// 		this.user=user;
+	// 	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
