@@ -24,16 +24,14 @@ public class User {
 	String email;
 	Boolean enabled;
 	
-	@OneToMany(mappedBy = "customer")
+	@OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
 	List<Order> customerOrders;
 	
-	@OneToMany(mappedBy = "master")
+	@OneToMany(mappedBy = "master", fetch = FetchType.EAGER)
 	List<Order> masterOrders;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	List<UserRole> userRoles;
 
-	public boolean isEnabled() {
-		return getEnabled();
-	}
+	
 }

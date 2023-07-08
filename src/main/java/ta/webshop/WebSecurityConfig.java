@@ -2,6 +2,7 @@ package ta.webshop;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +41,7 @@ public class WebSecurityConfig {
 		 
 		 http.formLogin().loginPage("/security/login/form")
 		 				.loginProcessingUrl("/spring/login")
-		 				.defaultSuccessUrl("/security/login/success")
+		 				.defaultSuccessUrl("/security/login/success",true)
 		 				.failureUrl("/security/login/failure");
 		 
 		 http.rememberMe().tokenValiditySeconds(30*24*24*60*60);
@@ -62,7 +63,7 @@ public class WebSecurityConfig {
 	
 		@Bean // Hỗ trợ cơ chế mã hóa và so sánh mật khẩu
 		public BCryptPasswordEncoder getPasswordEncoder() {
-			return new BCryptPasswordEncoder();
+			return new BCryptPasswordEncoder(11);
 		}
 		
 		@Autowired
@@ -71,8 +72,6 @@ public class WebSecurityConfig {
 	                .userDetailsService(userDetailsService)
 	                .passwordEncoder( getPasswordEncoder() );
 	    }
-	
-	
 }
 
 

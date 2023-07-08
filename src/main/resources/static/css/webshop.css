@@ -32,6 +32,13 @@
     background-color: #223747 !important;
     background-image: linear-gradient(to right, #0d171e, #4973f2);
 }
+#gradFooter {
+    background-color: #223747 !important;
+    background-image: linear-gradient(to right, #0d171e, #4973f2);
+}
+.footer-p{
+    font-size: xx-small;
+}
 
 #product-size {
     float: right;
@@ -162,3 +169,8 @@
   .btn-submit:hover {
     background-color: #0D47A1 !important;
   }
+
+  .order-form {
+    float: top !important;
+    float: right !important;
+}

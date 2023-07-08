@@ -20,7 +20,7 @@ public class WebSecurityController implements ErrorController {
 		
 	}
 	
-	@RequestMapping({"/security/access/denied","/error"})
+	@RequestMapping({"/security/access/denied"})
 	public String denied(Model model) {
 		model.addAttribute("message","không có quyền truy cập");
 		return "forward:/security/login/form";

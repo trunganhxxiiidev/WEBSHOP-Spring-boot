@@ -1,5 +1,7 @@
 package ta.webshop.security;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,16 +17,20 @@ public class userDetailsServiceImpl implements UserDetailsService{
 	@Autowired
 	UserDAO userDAO;
 	
+	
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		try {
-			User user= userDAO.findById(username).get();
-			return  new  UserDetailImpl(user);
-		} catch (UsernameNotFoundException e) {
-			throw new UsernameNotFoundException(username+" not found");
-			
-		}
+		// User user=userDAO.findById(username).get();
+		// if(user==null) {
+		// 	throw new UsernameNotFoundException("user not found");
+		// }
+		// return new  UserDetailImpl(user);
+		
+		//Optional<User> optionalUser = userDAO.findById(username);
+		Optional<User> Ouser=userDAO.findById(username);
+    User user = Ouser.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    return new UserDetailImpl(user);
 	}
-	
 
 }

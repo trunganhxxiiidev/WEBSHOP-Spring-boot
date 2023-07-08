@@ -1,8 +1,9 @@
 package ta.webshop.security;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-
+import java.util.ArrayList;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,15 +17,12 @@ import ta.webshop.jpa.entity.UserRole;
 @SuppressWarnings("serial")
 @Data
 
-@NoArgsConstructor
-@AllArgsConstructor
-
 public class UserDetailImpl implements UserDetails {
-	 User user;
+	 private User user;
 	
-	//  public UserDetailImpl(User user) {
-	// 		this.user=user;
-	// 	}
+	 public UserDetailImpl(User user) {
+			this.user=user;
+		}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -33,9 +31,9 @@ public class UserDetailImpl implements UserDetails {
 			return List.of();
 		}
 		return userRoles.stream()
-				.map(ur->"ROLE_"+ur.getRole().getId())
+			.map(ur->"ROLE_"+ur.getRole().getId())
 				.map(au-> new SimpleGrantedAuthority(au)).toList();
-	}
+			}
 
 	@Override
 	public String getPassword() {
@@ -70,8 +68,5 @@ public class UserDetailImpl implements UserDetails {
 	public boolean isEnabled() {
 		return user.getEnabled();
 	}
-
-
-	
 
 }

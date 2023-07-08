@@ -1,0 +1,54 @@
+<div class="card col-4" th:fragment="scart" style="max-width: max-content">
+    <div class="card-header py-3">
+      <h5 class="mb-0 cartLogo">Giỏ hàng </h5>
+      
+    </div>
+    <div class="card-body" th:each="item: ${cart.items}" th:attr="data-id=${item.id},data-amount=${item.getAmount()},data-price=${item.price},data-discount=${item.discount}">
+      <!-- Single item -->
+      <div class="row">
+        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+          <!-- Image -->
+          <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+            <img th:src="@{|/images/items/${item.img}|}" class="w-100" alt="Blue Jeans Jacket" />
+            <a href="#!">
+              <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+            </a>
+          </div>
+          <!-- Image -->
+        </div>
+
+        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+          <!-- Data -->
+          <p><strong th:text="${item.name}"></strong></p>
+         <del> Giá gốc: <span th:text="${item.price}"></span> $</del> <br>
+          Mã sản phẩm: <span th:text="${item.id}"> </span> <br>
+          Giảm giá: <span th:text="${item.discount*100}"></span>% <br>
+          
+
+          <!-- Data -->
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <!-- Quantity -->
+          <div class="form-outline">
+            <input class="form-control cart-update" id="form1" min="0" name="quantity" th:value="${item.quantity}" type="number"/>
+            <label class="form-label " for="form1">Quantity</label>
+
+          </div>
+          <!-- Quantity -->
+
+          <!-- Price  -->
+          <p class="text-start text-md-center">
+            <span>Giá hiện tại </span><strong th:text="${item.getAmount()}" id="getamount" class="item-amount"></strong>$
+          </p>
+          <!-- Price -->
+        </div>
+      </div>
+      <!-- Single item -->
+
+      <hr class="my-4" />
+
+
+      <!-- Single item -->
+    </div>
+  </div>

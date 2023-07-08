@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Userroles")
 public class UserRole {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	@ManyToOne
 	@JoinColumn(name = "Roleid")

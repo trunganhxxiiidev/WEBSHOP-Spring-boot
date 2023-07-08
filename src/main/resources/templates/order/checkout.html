@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/shared/layout2::dynamic(~{::view})}">
     <main th:fragment="view">
-        <section class="order-form m-4">
+        <div class="row">
+        <div class="col-md-4"  th:replace="~{/cart/view_cart::scart}"></div>
+        <section class="order-form  col-8 ">
             <div class="container pt-4">
                 <div class="row">
                     <div class="col-12 px-4">
@@ -10,34 +12,49 @@
                         <hr class="mt-1" />
                     </div>
           
-                    <div class="col-12">
-                        <div class="row mx-4">
-                            <div class="col-sm-6">
+                    <div class="col-12"  >
+                        <form th:object="${order}" action="/order/purchase" method="post" id="formPurchase">
+                            <div class="mb-3 mt-3">
+                                <label>Customer:</label>
+                                <input th:field="*{customer.username}" class="form-control"  >
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label>Order Date:</label>
+                                <input th:field="*{createDate}" class="form-control"  >
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label>Total Amount:</label>
+                                <input th:field="*{amount}" class="form-control"  >
+                                <!-- <span th:field="*{amount}" id="cart-checkout" class="total-amount-checkout"></span> -->
+                            </div>
+                        <!-- <div class="row mx-4">
+                             <div class="col-sm-6">
                                 <div class="form-outline">
                                     <label  for="NameCheckout">Họ tên người nhận</label>
                                     <input type="string" id="NameCheckout" class="form-control" />
                                 </div>
-                            </div>
-                            <div class="col-sm-6 mt-2 mt-sm-0">
+                            </div> 
+                             <div class="col-sm-6 mt-2 mt-sm-0">
                                 <div class="form-outline">
                                     <label  for="EmailCheckout">email</label>
                                     <input type="string" id="EmailCheckout" class="form-control" />
                                 </div>
-                            </div>
-                        </div>
+                            </div> 
+                        </div> -->
           
-                        <div class="row mt-3 mx-4">
+                        <!-- <div class="row mt-3 mx-4">
                             <div class="col-12">
                                 <label class="order-form-label">Số điện thoại người nhận</label>
                             </div>
                             <div class="col-12">
                                 <div class="form-outline">
-                                    <input type="number" id="form3" class="form-control order-form-input" />
+                                    <input type="tel" id="form3" class="form-control order-form-input"  
+                                     />
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
           
-                        <div class="row mt-3 mx-4">
+                        <!-- <div class="row mt-3 mx-4">
                             <div class="col-12">
                                 <label class="order-form-label">Ghi chú</label>
                             </div>
@@ -46,9 +63,9 @@
                                     <input type="text" id="form4" class="form-control order-form-input" />
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
           
-                        <div class="row mt-3 mx-4">
+                        <!-- <div class="row mt-3 mx-4">
                             <div class="col-12">
                                 <label class="order-form-label" for="date-picker-example">Date</label>
                             </div>
@@ -59,7 +76,7 @@
                                     <label for="datepicker1" class="form-label">Select a date</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
           
                         <div class="row mt-3 mx-4">
                             <div class="col-12">
@@ -67,28 +84,18 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-outline">
-                                    <input type="text" id="form5" class="form-control order-form-input" />
-                                    <label class="form-label" for="form5">Street Address</label>
+                                    <input th:field="*{address}" type="text" id="form5" class="form-control order-form-input" />
+                                    <label class="form-label" for="form5"> Address</label>
                                 </div>
                             </div>
-                            <div class="col-12 mt-2">
-                                <div class="form-outline">
-                                    <input type="text" id="form6" class="form-control order-form-input" />
-                                    <label class="form-label" for="form6">Street Address Line 2</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 mt-2 pe-sm-2">
+                            
+                            <!-- <div class="col-sm-6 mt-2 pe-sm-2">
                                 <div class="form-outline">
                                     <input type="text" id="form7" class="form-control order-form-input" />
                                     <label class="form-label" for="form7">City</label>
                                 </div>
                             </div>
-                            <div class="col-sm-6 mt-2 ps-sm-0">
-                                <div class="form-outline">
-                                    <input type="text" id="form8" class="form-control order-form-input" />
-                                    <label class="form-label" for="form8">Region</label>
-                                </div>
-                            </div>
+                            
                             <div class="col-sm-6 mt-2 pe-sm-2">
                                 <div class="form-outline">
                                     <input type="text" id="form9" class="form-control order-form-input" />
@@ -100,27 +107,29 @@
                                     <input type="text" id="form10" class="form-control order-form-input" />
                                     <label class="form-label" for="form10">Country</label>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
           
-                        <div class="row mt-3 mx-4">
+                        <!-- <div class="row mt-3 mx-4">
                             <div class="col-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                                     <label class="form-check-label" for="flexCheckDefault">I know what I need to know</label>
                                 </div>
                             </div>
-                        </div>
-          
+                        </div> -->
+                        <input th:field="*{orderState.id}" type="hidden">
                         <div class="row mt-3">
                             <div class="col-12">
-                                <button type="button" id="btnSubmit" class="btn btn-primary d-block mx-auto btn-submit">Submit</button>
+                                <button type="submit"  class="btn btn-primary d-block mx-auto btn-submit">Purchase</button>
                             </div>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
           </section>
+        </div>
 
     </main>
 </html>
