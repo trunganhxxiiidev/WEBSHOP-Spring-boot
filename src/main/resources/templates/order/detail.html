@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	th:replace="~{/shared/layout::dynamic(~{::view})}">
+	<main th:fragment="view">
+		<ul th:object="${order}">
+            <li>id: <span th:text="*{id}"></span></li>
+			<li>Ngày tạo: <span th:text="*{createDate}"></span></li>
+            <li>Thành tiền: <span th:text="*{amount}"></span></li>
+            <li>Địa chỉ nhận hàng: <span th:text="*{address}"></span></li>
+            <li>Trạng thái đơn hàng: <span th:text="*{orderState.name}"></span></li>
+		</ul>
+		<table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Discount</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="d : ${order.orderDetails}">
+                <td th:text="${d.product.id}"></td>
+                <td th:text="${d.product.name}"></td>
+                <td th:text="${d.unitPrice}"></td>
+                <td><span th:text="${d.discount * 100}"></span>%</td>
+                <td th:text="${d.quantity}"></td>
+                <td th:text="${d.quantity*d.unitPrice*(1-d.discount)}"></td>
+            </tr>
+        </tbody>
+    </table>
+	</main>
+</html>

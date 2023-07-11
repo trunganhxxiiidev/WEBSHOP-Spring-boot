@@ -43,7 +43,8 @@
             <button type="button"  th:unless="${itemsOfPage.first}" class="btn btn-outline-secondary"> <a th:href="@{|?p=${pageNumber-1}&keyword=${kw}|}"><i class='bx bx-skip-previous bx-sm' ></i>Trang trước</a> </button>
             <button type="button" th:unless="${itemsOfPage.last}"  class="btn btn-outline-secondary"><a th:href="@{|?p=${pageNumber+1}&keyword=${kw}|}">Trang sau <i class='bx bx-skip-next bx-sm' ></i></a></button>
             <button type="button" class="btn btn-outline-secondary"><a th:href="@{|?p=${totalPages-1}|}">Trang cuối <i class='bx bx-last-page bx-sm' ></i></a></button>
-          </div>
+        </div>
+        
         <div  class="paging-card-info" >
             <span th:text="${itemsOfPage.number+1}"></span> of
             <span th:text="${itemsOfPage.totalPages} "></span> pages

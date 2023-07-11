@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import ta.webshop.jpa.entity.Product;
+import ta.webshop.jpa.entity.User;
 
 public interface ProductService {
 
@@ -28,5 +29,7 @@ public interface ProductService {
 	Product findById(Integer id);
 
 	void update(Product product);
+
+	Page<Product> findByUser(User user, Pageable pageable);
 
 }

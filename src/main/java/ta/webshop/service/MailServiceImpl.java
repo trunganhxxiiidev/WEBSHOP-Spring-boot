@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import jakarta.mail.internet.MimeMessage;
+import ta.webshop.jpa.entity.User;
 
 @Service
 public class MailServiceImpl implements MailService{
@@ -74,6 +75,16 @@ public class MailServiceImpl implements MailService{
 	public void queue(Mail mail) {
 		mails.add(mail);
 		
+		
+	}
+
+	@Override
+	public void sendWelcome(User user) {
+		String url = "http://localhost:8080/account/activate/" + user.getUsername();
+		String subject = "Welcome to WebShop";
+		String text = "<a href='"+url+"'>Kích hoạt tài khoản</a>";
+		Mail mail = new Mail(user.getEmail(), subject, text);
+		this.queue(mail);
 		
 	}
 	

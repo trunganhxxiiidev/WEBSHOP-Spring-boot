@@ -2,6 +2,8 @@ package ta.webshop.jpa.service;
 
 import java.util.Collection;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import ta.webshop.jpa.entity.User;
 import ta.webshop.jpa.service.ShoppingCartService.CartItem;
 import ta.webshop.jpa.dao.ProductDAO;
 
+
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Autowired
@@ -31,7 +34,6 @@ public class OrderServiceImpl implements OrderService {
 	@Transactional
 	@Override
 	public void purchase(Order order, Collection<CartItem> items) {
-		// TODO Auto-generated method stub
 		dao.save(order);
 		List<OrderDetail> details = items.stream().map(item -> {
 			OrderDetail detail = new OrderDetail();
@@ -47,38 +49,39 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public List<Order> findByCustomer(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByCustomer(user);
 	}
 
 	@Override
 	public Order findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getById(id);
 	}
 
 	@Override
 	public List<Order> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findAll();
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		dao.deleteById(id);
 		
 	}
 
 	@Override
 	public void update(Order entity) {
-		// TODO Auto-generated method stub
+		dao.save(entity);
 		
 	}
 
 	@Override
 	public List<Order> findByOrderState(OrderState orderState) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findByOrderState(orderState);
+	}
+
+	@Override
+	public void save(Order order) {
+		dao.save(order);
 	}
 
 }

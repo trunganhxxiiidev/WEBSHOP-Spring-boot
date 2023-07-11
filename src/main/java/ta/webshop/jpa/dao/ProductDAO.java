@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,7 @@ import org.springframework.data.repository.query.Param;
 import ta.webshop.jpa.entity.Product;
 import ta.webshop.jpa.entity.Report;
 import ta.webshop.jpa.entity.Report2;
+import ta.webshop.jpa.entity.User;
 
 public interface ProductDAO extends JpaRepository<Product, Integer>{
 	@Query("SELECT p FROM Product p WHERE p.unitPrice BETWEEN ?1 AND ?2")
@@ -67,4 +69,18 @@ public interface ProductDAO extends JpaRepository<Product, Integer>{
 
 	@Query("SELECT p from Product p WHERE p.id IN ?1")
 	Page<Product> findAllByIds(List<Integer> ids, Pageable pageable);
+
+	
+	//CAC don hang da mua chi bao gom da giao hang thanh cong, trang thai =4
+	@Query("SELECT DISTINCT d.product FROM OrderDetail d WHERE d.order.customer=?1 AND d.order.orderState like 4")
+	Page<Product> findByUser(User user, Pageable pageable);
+	
+	// @Query("SELECT p.category.nameVn AS group, "
+	// 		+ " sum(p.quantity) AS count, "
+	// 		+ " sum(p.quantity*p.unitPrice) AS value,"
+	// 		+ " min(p.unitPrice) AS min, "
+	// 		+ " max(p.unitPrice) AS max, "
+	// 		+ " avg(p.unitPrice) AS avg "
+	// 		+ " FROM Product p GROUP BY p.category.nameVn")
+	// List<ReportItem> getInventoryData();
 }

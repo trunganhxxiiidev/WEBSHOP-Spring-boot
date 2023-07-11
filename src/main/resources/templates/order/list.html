@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/shared/layout::dynamic(~{::view})}">
+    <main th:fragment="view">
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="table-secondary ">
+              <tr>
+                <th>Id</th>
+                <th>Ngày đặt hàng</th>
+                <th>Trạng thái</th>
+                <th>Địa chỉ nhận hàng</th>
+                <th>Thành tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr th:each="o : ${orders}">
+                <td  th:text="${o.id}">
+                  
+                </td>
+                <td  th:text="${o.createDate}">
+                  
+                </td>
+                <td th:switch="${o.orderState.name}">
+                    <span th:case="'Đã bị hủy'" class="badge badge-danger rounded-pill d-inline"> Đã bị hủy </i></span>
+                    <span th:case="'Đang chờ xử lý'" class="badge badge-warning rounded-pill d-inline"> Đang chờ xử lý </span>
+                    <span th:case="'Đang liên hệ'" class="badge badge-secondary rounded-pill d-inline">  Đang liên hệ</span>
+                    <span th:case="'Đã xác nhận'" class="badge badge-info rounded-pill d-inline">Đã xác nhận</span>
+                    <span th:case="'Đang chuyển hàng'" class="badge badge-primary rounded-pill d-inline" ><i class="fa-sharp fa-solid fa-truck"></i> Đang chuyển hàng </span>
+                    <span th:case="'Đã giao hàng'"  class="badge badge-success rounded-pill d-inline">Đã giao hàng</span>
+
+                </td>
+                <td th:text="${o.address}"></td>
+                <td th:text="${o.amount}">                 
+                </td>
+                <td>
+                  <a th:href="@{|/order/detail/${o.id}|}">
+                  <button type="button" class="btn btn-rounded btn-center btn-secondary btn-md me-1 mb-2" data-mdb-toggle="tooltip"
+                  title="Xem chi tiết">
+                  <i class="fas fa-info-circle "></i>
+                </button>
+                </a>
+                  <a th:if="${o.orderState.id !=4&&o.orderState.id !=3}" th:href="@{|/order/cancel/${o.id}|}">
+                  <button type="button" class="btn btn-rounded btn-center btn-danger btn-md me-1 mb-2" data-mdb-toggle="tooltip"
+                  title="Huỷ đơn hàng, thao tác huỷ đơn hàng chỉ hợp lệ khi chưa giao hàng">
+                  <i class="fas fa-trash"></i>
+                </button>
+                </a>
+                </td>
+               
+              </tr>
+              
+            </tbody>
+          </table>
+    </main>
+</html>

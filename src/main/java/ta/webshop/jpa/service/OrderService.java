@@ -1,6 +1,7 @@
 package ta.webshop.jpa.service;
 
 import java.util.Collection;
+
 import java.util.List;
 
 import ta.webshop.jpa.entity.Order;
@@ -23,6 +24,8 @@ public interface OrderService {
 	void update(Order entity);
 
 	List<Order> findByOrderState(OrderState orderState);
+
+	void save(Order order);
 
 	
 

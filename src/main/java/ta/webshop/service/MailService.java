@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ta.webshop.jpa.entity.User;
 
 public interface MailService {
 	void queue(Mail mail);
@@ -36,4 +37,5 @@ public interface MailService {
 		}
 		
 	}
+	public void sendWelcome(User user);
 }

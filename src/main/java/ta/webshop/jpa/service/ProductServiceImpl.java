@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import ta.webshop.jpa.dao.ProductDAO;
 import ta.webshop.jpa.entity.Product;
+import ta.webshop.jpa.entity.User;
 
 @Service
 
@@ -76,6 +77,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void update(Product product) {
 		dao.save(product);	
+	}
+
+	@Override
+	public Page<Product> findByUser(User user,Pageable pageable) {
+		return dao.findByUser(user, pageable);
 	}
 	
 

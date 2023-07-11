@@ -174,3 +174,8 @@
     float: top !important;
     float: right !important;
 }
+
+.btn-center{
+    display: flex;
+  justify-content: center;
+}
