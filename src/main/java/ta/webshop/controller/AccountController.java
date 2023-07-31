@@ -99,10 +99,10 @@ public class AccountController {
 		return "account/edit-profile";
 	}
 	
-	// @GetMapping("/account/change-password")
-	// public String changePassword(Model model) {
-	// 	return "account/change-password";
-	// }
+	 @GetMapping("/account/change-password")
+	 public String changePassword(Model model) {
+	 	return "account/change-password";
+	 }
 	// @PostMapping("/account/change-password")
 	// public String changePassword(Model model, 
 	// 		@RequestParam("username") String username,
