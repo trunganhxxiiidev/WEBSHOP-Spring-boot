@@ -27,6 +27,18 @@ public class WebSecurityController implements ErrorController {
 		
 	}
 	
+	@RequestMapping("/security/login/failure")
+	public String failure(Model model) {
+		model.addAttribute("message", "Sai thông tin đăng nhập");
+		return "forward:/security/login/form";
+	}
+	
+	@RequestMapping("/security/logout/success")
+	public String logout(Model model) {
+		model.addAttribute("message", "Đăng xuất thành công");
+		return "forward:/security/login/form";
+	}
+	
 	// @Autowired
 	// AuthService authService;
 	

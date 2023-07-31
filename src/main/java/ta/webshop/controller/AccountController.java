@@ -2,8 +2,10 @@ package ta.webshop.controller;
 
 import java.io.File;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +21,7 @@ import ta.webshop.security.AuthService;
 import ta.webshop.service.MailService;
 import ta.webshop.service.UploadService;
 
+@Controller
 public class AccountController {
 	@Autowired
 	UserService userService;
@@ -31,12 +34,13 @@ public class AccountController {
 	@Autowired
 	AuthService authService;
 	
-	@GetMapping("/account/sign-up")
+	
+	@GetMapping("/account/signup")
 	public String signUp(Model model) {
 		model.addAttribute("user", new User());
-		return "account/sign-up";
+		return "account/signup";
 	}
-	@PostMapping("/account/sign-up")
+	@PostMapping("/account/signup")
 	public String signUp(Model model, 
 			@ModelAttribute("user") User user,
 			@RequestPart("photo_file") MultipartFile file) {
@@ -55,36 +59,45 @@ public class AccountController {
 		} else {
 			model.addAttribute("message", "Username đã được người khác sử dụng");
 		}
-		return "account/sign-up";
+		return "account/signup";
 	}
-	// @GetMapping("/account/activate/{username}")
-	// public String activate(Model model, 
-	// 		@PathVariable("username") String username) {
-	// 	User user = userService.findByUsername(username);
-	// 	user.setEnabled(true);
-	// 	userService.update(user);
-	// 	model.addAttribute("message", "Tài khoản đã được kích hoạt");
-	// 	return "forward:/security/login/form";
-	// }
+
+	@GetMapping("/account/activate/{username}")
+	public String activate(Model model, 
+			@PathVariable("username") String username) {
+		User user = userService.findByUsername(username);
+		
+		user.setEnabled(true);
+		if(user.getEnabled()==true) {
+			userService.update(user);
+			model.addAttribute("message", "Tài khoản đã được kích hoạt");
+			return "forward:/security/login/form";
+		}
+		else {
+			model.addAttribute("message", "kich hoat khong thanh cong");
+			return "forward:/security/login/form";
+		}
+		
+	}
 	
-	// @GetMapping("/account/edit-profile")
-	// public String editProfile(Model model) {
-	// 	model.addAttribute("user", authService.getUser());
-	// 	return "account/edit-profile";
-	// }
-	// @PostMapping("/account/edit-profile")
-	// public String editProfile(Model model, 
-	// 		@ModelAttribute("user") User user,
-	// 		@RequestPart("photo_file") MultipartFile file) {
-	// 	if(!file.isEmpty()) {
-	// 		File photo = uploadService.save(file, "/images/photos");
-	// 		user.setPhoto(photo.getName());
-	// 	}
-	// 	userService.update(user);
-	// 	model.addAttribute("message", "Tài khoản đã được cập nhật");
-	// 	authService.setUser(user);
-	// 	return "account/edit-profile";
-	// }
+	@GetMapping("/account/edit-profile")
+	public String editProfile(Model model) {
+		model.addAttribute("user", authService.getUser());
+		return "account/edit-profile";
+	}
+	@PostMapping("/account/edit-profile")
+	public String editProfile(Model model, 
+			@ModelAttribute("user") User user,
+			@RequestPart("photo_file") MultipartFile file) {
+		if(!file.isEmpty()) {
+			File photo = uploadService.save(file, "/images/photos");
+			user.setPhoto(photo.getName());
+		}
+		userService.update(user);
+		model.addAttribute("message", "Tài khoản đã được cập nhật");
+		authService.setUser(user);
+		return "account/edit-profile";
+	}
 	
 	// @GetMapping("/account/change-password")
 	// public String changePassword(Model model) {

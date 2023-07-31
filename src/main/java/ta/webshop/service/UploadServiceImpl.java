@@ -1,6 +1,7 @@
 package ta.webshop.service;
 
 import java.io.File;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.stereotype.Service;
 import jakarta.servlet.ServletContext;
-
+@Service
 public class UploadServiceImpl implements UploadService{
 	@Autowired
 	ServletContext app;

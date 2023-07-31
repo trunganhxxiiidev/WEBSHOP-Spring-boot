@@ -21,4 +21,15 @@ public class UserServiceImpl implements UserService {
 	public boolean existByUsername(String username) {	
 		return dao.existsById(username);
 	}
+
+	@Override
+	public User findByUsername(String username) {
+		return dao.getById(username);
+	}
+
+	@Override
+	public void update(User user) {
+		dao.save(user);
+		
+	}
 }

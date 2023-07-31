@@ -8,4 +8,8 @@ public interface UserService {
 
 	boolean existByUsername(String username);
 
+	User findByUsername(String username);
+
+	void update(User user);
+
 }

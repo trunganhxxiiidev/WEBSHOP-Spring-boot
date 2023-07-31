@@ -80,9 +80,9 @@ public class MailServiceImpl implements MailService{
 
 	@Override
 	public void sendWelcome(User user) {
-		String url = "http://localhost:8080/account/activate/" + user.getUsername();
-		String subject = "Welcome to WebShop";
-		String text = "<a href='"+url+"'>Kích hoạt tài khoản</a>";
+		String url = "http://localhost:8081/account/activate/" + user.getUsername();
+		String subject = "Active your account here- Thank for register from Webshop supporter team";
+		String text = "<a href='"+url+"'>Kích hoạt tài khoản người dùng</a>";
 		Mail mail = new Mail(user.getEmail(), subject, text);
 		this.queue(mail);
 		
