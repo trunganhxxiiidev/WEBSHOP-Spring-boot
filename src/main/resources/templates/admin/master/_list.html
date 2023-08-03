@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="card">
+    <div class="card-header">List of Master</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Fullname</th>
+                <th>Photo</th>
+                <th>Email</th>
+                <th>Enabled</th>
+                <th>Roles</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e: ${page.content}">
+                <td th:text="${e.username}"></td>
+                <td th:text="${e.fullname}"></td>
+                <td th:text="${e.photo}"></td>
+                <td th:text="${e.email}"></td>
+                <td th:text="${e.enabled==1?'Active':'Inactive'}"></td>
+                <td>
+                	<th:block th:each="ur, st: ${e.userRoles}">
+	                	<label th:text="${ur.role.id}" class="badge bg-success"></label>
+	                	<span th:if="${st.count != e.userRoles.size()}">, </span>
+                	</th:block>
+                </td>
+                <td>
+                    <a th:href="@{|${base}/edit/${e.username}|}">Edit</a>
+                    <a th:href="@{|${base}/delete/${e.username}|}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</html>

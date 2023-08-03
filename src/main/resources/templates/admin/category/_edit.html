@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="card">
+    <div class="card-header">Category Edition</div>
+    <div class="card-body">
+        <form th:object="${form}" method="post">
+
+            <div class="mb-3 mt-3">
+                <label>Id</label>
+                <input th:field="*{id}" class="form-control" readonly>
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Name</label>
+                <input th:field="*{name}" class="form-control">
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Name VN</label>
+                <input th:field="*{nameVn}" class="form-control">
+            </div>
+            <button th:formaction="@{|${base}/create|}" class="btn btn-primary" th:disabled="*{id} != null">Create</button>
+            <button th:formaction="@{|${base}/update|}" class="btn btn-success" th:disabled="*{id} == null">Update</button>
+            <a th:href="@{|${base}/delete/*{id}|}" class="btn btn-danger" th:classappend="*{id == null}?'disabled'">Delete</a>
+            <a th:href="@{|${base}/index|}" class="btn btn-secondary">Reset</a>
+        </form>
+    </div>
+</div>
+
+
+</html>

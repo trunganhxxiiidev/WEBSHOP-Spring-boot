@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/shared/layout::dynamic(~{::view})}">
+<main th:fragment="view">
+    <h3>Master Management</h3>
+    <div th:with="base='/admin/master',edit=${!#strings.endsWith(requestURI, 'index')}">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${!edit}?'active'" data-bs-toggle="tab" href="#list">LIST</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${edit}?'active'" data-bs-toggle="tab" href="#edit">EDIT</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane" th:classappend="${!edit}?'active':'fade'" id="list">
+                <br th:replace="~{/admin/master/_list}" />
+            </div>
+            <div class="tab-pane" th:classappend="${edit}?'active':'fade'" id="edit">
+                <br th:replace="~{/admin/master/_edit}" />
+            </div>
+        </div>
+    </div>
+</main>
+
+</html>

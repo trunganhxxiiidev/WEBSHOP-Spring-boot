@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/shared/layout::dynamic(~{::view})}">
+
+<main th:fragment="view">
+    <h3>Order Management</h3>
+    <div th:with="base='/admin/order' , edit=${!#strings.endsWith(requestURI, 'index')}">
+        <div>
+            <div class="btn-group" role="group">
+                
+                <a th:each="s: ${states}"
+                   th:href="@{|${base}/index/${s.id}|}"
+                   class="btn btn-lg btn-success"
+                   th:classappend="${currentState != null and currentState.id == s.id ? 'active' : ''}"
+                   th:text="${s.name + ' (' + s.orders.size() + ')'}"  ></a>
+                   
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link " th:classappend="${!edit}?'active'" data-bs-toggle="tab" href="#list">LIST</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${edit}?'active'" data-bs-toggle="tab" href="#edit">EDIT</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane " th:classappend="${!edit}?'active':'fade'" id="list">
+                <br th:replace="~{/admin/order/_list}" />
+            </div>
+            <div class="tab-pane" th:classappend="${edit}?'active':'fade'" id="edit">
+                <br th:replace="~{/admin/order/_edit}" />
+            </div>
+        </div>
+    </div>
+</main>
+
+</html>

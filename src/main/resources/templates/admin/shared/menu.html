@@ -1,0 +1,84 @@
+
+<body xmlns:th="http://www.thymeleaf.org" class="container-fluid">
+  <div class="sidebar container-fluid" >
+    <div class="logo_details">
+      <div class="logo_name"> Administration</div>
+      <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+
+      <li>
+        <a href="/admin/category/index">
+          <i class="bx bic  bx-grid-alt"></i>
+          <span class="link_name">Loại Hàng</span>
+        </a>
+        <span class="tooltip">Loại Hàng</span>
+      </li>
+      <li>
+        <a href="/admin/product/index?p=0">
+          <i class="bx bic bx-package"></i>
+          <span class="link_name">Hàng Hoá</span>
+        </a>
+        <span class="tooltip">Hàng Hoá</span>
+      </li>
+
+      <li>
+        <a href="/admin/customer/index">
+          <i class="bx bic bx-user"></i>
+          <span class="link_name">Khách hàng</span>
+        </a>
+        <span class="tooltip">Khách hàng</span>
+      </li>
+      <li>
+        <a href="/admin/order/index">
+          <i class="bx bic bx-chat"></i>
+          <span class="link_name">Đơn đặt hàng</span>
+        </a>
+        <span class="tooltip">Đơn đặt hàng</span>
+      </li>
+      <li>
+        <a href="/admin/report/">
+          <i class="bx bic bx-pie-chart-alt-2"></i>
+          <span class="link_name">Analytics</span>
+        </a>
+        <span class="tooltip">Analytics</span>
+      </li>
+      <li>
+        <a href="/admin/role/index">
+          <i class="bx bic bx-lock-alt"></i>
+          <span class="link_name">Admin Roles</span>
+        </a>
+        <span class="tooltip">Admin Roles</span>
+      </li>
+      <li>
+        <a href="/admin/master/index">
+          <i class="bx bic bx-cylinder"></i>
+          <span class="link_name" >Admin</span>
+        </a>
+        <span class="tooltip">Admin</span>
+      </li>
+      <li>
+        <a href="/admin/authorize">
+          <i class="bx bic bx-user-voice"></i>
+          <span class="link_name">Users</span>
+        </a>
+        <span class="tooltip">Users</span>
+      </li>
+      <li class="profile">
+        <div class="profile_details">
+          <img src="profile.jpeg" alt="profile image">
+          <div class="profile_content">
+            <div class="name">Anna Jhon</div>
+            <div class="designation">Admin</div>
+          </div>
+        </div>
+        <i class="bx bx-log-out" id="log_out"></i>
+      </li>
+    </ul>
+  </div>
+    <!-- Scripts -->
+    <script src="adminwebshop.js"></script>
+</body>
+
+
+  

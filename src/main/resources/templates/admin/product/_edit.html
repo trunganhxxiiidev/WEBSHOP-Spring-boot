@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="card">
+    <div class="card-header">Product Edition</div>
+    <div class="card-body">
+        <form th:object="${form}" method="post" enctype="multipart/form-data">
+        	<div class="row">
+	            <div class="mb-3 mt-3 col">
+	                <label>Id</label>
+	                <input th:field="*{id}" class="form-control" readonly>
+	            </div>
+	            <div class="mb-3 mt-3 col">
+	                <label>Name</label>
+	                <input th:field="*{name}" class="form-control">
+	            </div>
+	            <div class="mb-3 mt-3 col">
+	                <label>Unit Price</label>
+	                <input th:field="*{unitPrice}" class="form-control">
+	            </div>
+            </div>
+            <div class="row">
+	            <div class="mb-3 mt-3 col">
+	                <label>Discount</label>
+	                <input th:field="*{discount}" class="form-control">
+	            </div>
+	            <div class="mb-3 mt-3 col">
+	                <label>Quantity</label>
+	                <input th:field="*{quantity}" class="form-control">
+	            </div>
+	            <div class="mb-3 mt-3 col">
+	                <label>Image</label>
+	                <input type="file" name="image_file" class="form-control">
+	                <input type="hidden" th:field="*{image}">
+	            </div>
+            </div>
+            <div class="row">
+	            <div class="mb-3 mt-3 col">
+	                <label>Category</label>
+	                <select th:field="*{category.id}" class="form-select">
+	                	<th:block th:each="c: ${categories}">
+	                		<option th:value="${c.id}" th:text="${c.nameVn}"></option>
+	                	</th:block>
+	                </select>
+	            </div>
+	            <div class="mb-3 mt-3 col">
+	                <label>Like Count</label>
+	                <input th:field="*{likeCount}" class="form-control">
+	            </div>
+	            <div class="mb-3 mt-3 col">
+	                <label>Create Date</label>
+	                <input th:field="*{createDate}" class="form-control">
+	            </div>
+            </div>
+            <button th:formaction="@{|${base}/create|}" class="btn btn-primary" th:disabled="*{id} != null">Create</button>
+            <button th:formaction="@{${base}/update}" class="btn btn-success" th:disabled="*{id} == null">Update</button>
+            <a th:href="@{|${base}/delete/*{id}|}" class="btn btn-danger" th:classappend="*{id == null}?'disabled'">Delete</a>
+            <a th:href="@{|${base}/index|}" class="btn btn-info">Reset</a>
+        </form>
+    </div>
+</div>
+
+
+</html>

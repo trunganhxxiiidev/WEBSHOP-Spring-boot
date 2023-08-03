@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="card">
+    <div class="card-header">Category Edition</div>
+    <div class="card-body">
+        <form th:object="${form}" method="post">
+            <div class="mb-3 mt-3">
+                <label>Id</label>
+                <input th:field="*{id}" class="form-control" readonly>
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Customer</label>
+                <input th:field="*{customer.username}" class="form-control">
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Order Date</label>
+                <input th:field="*{createDate}" class="form-control">
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Shipping Address</label>
+                <input th:field="*{address}" class="form-control">
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Total Amount</label>
+                <input th:field="*{amount}" class="form-control">
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Order Status</label>
+                <select th:field="*{orderState.id}" class="form-select">
+                	<th:block th:each="st: ${states}">
+                		<option th:value="${st.id}" th:text="${st.name}">
+                	</th:block>
+                </select>
+            </div>
+            <div class="mb-3 mt-3">
+                <label>Web Master</label>
+                <input th:field="*{master.username}" class="form-control">
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Unit Price</th>
+                        <th>Discount</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="d: *{orderDetails}">
+                        <td th:text="${d.product.id}"></td>
+                        <td th:text="${d.product.name}"></td>
+                        <td th:text="${d.unitPrice}"></td>
+                        <td th:text="${d.discount}"></td>
+                        <td th:text="${d.quantity}"></td>
+                        <td th:text="${#numbers.formatDecimal(d.unitPrice*d.quantity*(1-d.discount), 0, 2)}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <button th:formaction="@{|${base}/update|}" class="btn btn-success" th:disabled="*{id} == null">Update</button>
+            <a th:href="@{|${base}/delete/*{id}|}" class="btn btn-danger" th:classappend="*{id == null}?'disabled'">Delete</a>
+            <a th:href="@{|${base}/index|}" class="btn btn-info">Reset</a>
+        </form>
+    </div>
+</div>
+
+
+</html>

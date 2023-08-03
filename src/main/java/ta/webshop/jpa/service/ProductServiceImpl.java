@@ -83,6 +83,28 @@ public class ProductServiceImpl implements ProductService {
 	public Page<Product> findByUser(User user,Pageable pageable) {
 		return dao.findByUser(user, pageable);
 	}
+
+	@Override
+	public List<Product> findAll() {
+		return dao.findAll();
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		dao.deleteById(id);
+		
+	}
+
+	@Override
+	public void create(Product entity) {
+		dao.save(entity);
+		
+	}
+
+	@Override
+	public Page<Product> findAll(Pageable pageable) {
+		return dao.findAll(pageable);
+	}
 	
 
 	

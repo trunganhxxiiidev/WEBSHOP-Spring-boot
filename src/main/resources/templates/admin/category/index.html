@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/shared/layout::dynamic(~{::view})}">
+<main th:fragment="view">
+    <h3>Category Management</h3>
+    <div th:with="base='/admin/category'">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#edit">EDIT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#list">LIST</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="edit">
+                <br th:replace="~{/admin/category/_edit}" />
+            </div>
+            <div class="tab-pane fade" id="list">
+                <br th:replace="~{/admin/category/_list}" />
+            </div>
+        </div>
+    </div>
+</main>
+
+</html>

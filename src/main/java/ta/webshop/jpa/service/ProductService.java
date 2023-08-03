@@ -32,4 +32,15 @@ public interface ProductService {
 
 	Page<Product> findByUser(User user, Pageable pageable);
 
+	List<Product> findAll();
+
+
+	void deleteById(Integer id);
+
+	void create(Product entity);
+
+	Page<Product> findAll(Pageable pageable);
+
+	
+
 }

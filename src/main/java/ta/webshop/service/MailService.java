@@ -4,6 +4,7 @@ package ta.webshop.service;
 
 import org.springframework.stereotype.Service;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,4 +39,5 @@ public interface MailService {
 		
 	}
 	public void sendWelcome(User user);
+	 void sendPasswordToken(User user);
 }

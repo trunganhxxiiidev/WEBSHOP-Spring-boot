@@ -93,88 +93,100 @@ public class AccountController {
 			File photo = uploadService.save(file, "/images/photos");
 			user.setPhoto(photo.getName());
 		}
-		userService.update(user);
+		User existingUser = authService.getUser(); // Lấy user hiện tại từ AuthService (giả định là có)
+		if (existingUser != null) {
+			// Cập nhật thông tin người dùng từ đối tượng user mới
+			existingUser.setUsername(user.getUsername());
+			existingUser.setEmail(user.getEmail());
+			existingUser.setFullname(user.getFullname());
+			// Các trường thông tin khác cần cập nhật
+
+			// Sử dụng phương thức save() thích hợp để cập nhật thông tin người dùng
+			userService.update(existingUser);
+		}
+
 		model.addAttribute("message", "Tài khoản đã được cập nhật");
-		authService.setUser(user);
+		authService.setUser(existingUser); // Cập nhật user trong AuthService
+
 		return "account/edit-profile";
 	}
-	
+	//đối với edit, toi khong the update username ma khong tao doi tuong user moi trong db, vi username lakhoa chinh, dieu nay se lam mat thong tin cac bang khac
 	 @GetMapping("/account/change-password")
 	 public String changePassword(Model model) {
 	 	return "account/change-password";
 	 }
-	// @PostMapping("/account/change-password")
-	// public String changePassword(Model model, 
-	// 		@RequestParam("username") String username,
-	// 		@RequestParam("password") String password,
-	// 		@RequestParam("newpass") String newpass,
-	// 		@RequestParam("confirm") String confirm) {
-	// 	User user = authService.getUser();
-	// 	if(!user.getUsername().equalsIgnoreCase(username)) {
-	// 		model.addAttribute("message", "Sai username");
-	// 	} else if(!newpass.equals(confirm)) {
-	// 		model.addAttribute("message", "Xác nhận mật khẩu mới không đúng");
-	// 	} else if(!pe.matches(password, user.getPassword())) {
-	// 		model.addAttribute("message", "Sai password");
-	// 	} else {
-	// 		user.setPassword(pe.encode(newpass));
-	// 		userService.update(user);
-	// 		model.addAttribute("message", "Đổi mật khẩu thành công");
-	// 		authService.setUser(user);
-	// 	}
-	// 	return "account/change-password";
-	// }
+	@PostMapping("/account/change-password")
+	public String changePassword(Model model, 
+			@RequestParam("username") String username,
+			@RequestParam("password") String password,
+			@RequestParam("newpass") String newpass,
+			@RequestParam("confirm") String confirm) {
+		User user = authService.getUser();
+		if(!user.getUsername().equalsIgnoreCase(username)) {
+			model.addAttribute("message", "Sai username");
+		} else if(!newpass.equals(confirm)) {
+			model.addAttribute("message", "Xác nhận mật khẩu mới không đúng");
+		} else if(!pe.matches(password, user.getPassword())) {
+			model.addAttribute("message", "Sai password");
+		} else {
+			user.setPassword(pe.encode(newpass));
+			userService.update(user);
+			model.addAttribute("message", "Đổi mật khẩu thành công");
+			authService.setUser(user);
+		}
+		return "account/change-password";
+	}
 	
-	// @GetMapping("/account/forgot-password")
-	// public String forgotPassword(Model model) {
-	// 	return "account/forgot-password";
-	// }
-	// @PostMapping("/account/forgot-password")
-	// public String forgotPassword(Model model, 
-	// 		@RequestParam("username") String username,
-	// 		@RequestParam("email") String email) {
-	// 	try {
-	// 		User user = userService.findByUsername(username);
-	// 		if(!user.getEmail().equalsIgnoreCase(email)) {
-	// 			model.addAttribute("message", "Sai Email");
-	// 		} else {
-	// 			mailService.sendPasswordToken(user);
-	// 			model.addAttribute("message", "Vui lòng reset password qua email");
-	// 		}
-	// 	} catch (Exception e) {
-	// 		model.addAttribute("message", "Sai username");
-	// 	}
+	@GetMapping("/account/forgot-password")
+	public String forgotPassword(Model model) {
+		return "account/forgot-password";
+	}
+	@PostMapping("/account/forgot-password")
+	public String forgotPassword(Model model, 
+			@RequestParam("username") String username,
+			@RequestParam("email") String email) {
+		try {
+			User user = userService.findByUsername(username);
+			if(!user.getEmail().equalsIgnoreCase(email)) {
+				model.addAttribute("message", "Sai Email");
+			} else {
+				mailService.sendPasswordToken(user);
+				model.addAttribute("message", "Vui lòng reset password qua email");
+			}
+		} catch (Exception e) {
+			model.addAttribute("message", "Sai username");
+		}
 		
-	// 	return "account/forgot-password";
-	// }
+		return "account/forgot-password";
+	}
 	
-	// @GetMapping("/account/reset/{username}/{hash}")
-	// public String resetPassword(Model model, 
-	// 		@PathVariable("username") String username,
-	// 		@PathVariable("hash") int hash) {
-	// 	User user = userService.findByUsername(username);
-	// 	if(hash == user.getPassword().hashCode()) {
-	// 		return "account/reset-password";
-	// 	}
-	// 	return "account/forgot-password";
-	// }
+	@GetMapping("/account/reset/{username}/{hash}")
+	public String resetPassword(Model model, 
+			@PathVariable("username") String username,
+			@PathVariable("hash") int hash) {
+		User user = userService.findByUsername(username);
+		if(hash == user.getPassword().hashCode()) {
+			return "account/reset-password";
+		}
+		return "account/forgot-password";
+	}
 	
-	// @PostMapping("/account/reset-password")
-	// public String resetPassword(Model model, 
-	// 		@RequestParam("username") String username,
-	// 		@RequestParam("newpass") String newpass,
-	// 		@RequestParam("confirm") String confirm) {
-	// 	User user = userService.findByUsername(username);
-	// 	if(!user.getUsername().equalsIgnoreCase(username)) {
-	// 		model.addAttribute("message", "Sai username");
-	// 	} else if(!newpass.equals(confirm)) {
-	// 		model.addAttribute("message", "Xác nhận mật khẩu mới không đúng");
-	// 	} else {
-	// 		user.setPassword(pe.encode(newpass));
-	// 		userService.update(user);
-	// 		model.addAttribute("message", "Khởi tạo mật khẩu thành công");
-	// 		return "forward:/security/login/form";
-	// 	}
-	// 	return "account/reset-password";
-	// }
+	@PostMapping("/account/reset-password")
+	public String resetPassword(Model model, 
+			@RequestParam("username") String username,
+			@RequestParam("newpass") String newpass,
+			@RequestParam("confirm") String confirm) {
+		User user = userService.findByUsername(username);
+		if(!user.getUsername().equalsIgnoreCase(username)) {
+			model.addAttribute("message", "Sai username");
+		} else if(!newpass.equals(confirm)) {
+			model.addAttribute("message", "Xác nhận mật khẩu mới không đúng");
+		} else {
+			user.setPassword(pe.encode(newpass));
+			userService.update(user);
+			model.addAttribute("message", "Khởi tạo mật khẩu mới thành công,vui lòng đăng nhập ");
+			return "forward:/security/login/form";
+		}
+		return "account/reset-password";
+	}
 }

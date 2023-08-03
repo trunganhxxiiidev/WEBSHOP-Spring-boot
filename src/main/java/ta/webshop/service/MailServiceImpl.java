@@ -1,6 +1,7 @@
 package ta.webshop.service;
 
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,17 @@ public class MailServiceImpl implements MailService{
 		String url = "http://localhost:8081/account/activate/" + user.getUsername();
 		String subject = "Active your account here- Thank for register from Webshop supporter team";
 		String text = "<a href='"+url+"'>Kích hoạt tài khoản người dùng</a>";
+		Mail mail = new Mail(user.getEmail(), subject, text);
+		this.queue(mail);
+		
+	}
+
+	@Override
+	public void sendPasswordToken(User user) {
+		int hash = user.getPassword().hashCode();
+		String url = "http://localhost:8081/account/reset/" + user.getUsername() + "/" + hash;
+		String subject = "Reset password";
+		String text = "<a href='"+url+"'>Reset password</a>";
 		Mail mail = new Mail(user.getEmail(), subject, text);
 		this.queue(mail);
 		

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="card">
+    <div class="card-header">List of Customers</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Fullname</th>
+                <th>Photo</th>
+                <th>Email</th>
+                <th>Enabled</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="e: ${page.content}">
+                <td th:text="${e.username}"></td>
+                <td th:text="${e.fullname}"></td>
+                <td th:text="${e.photo}"></td>
+                <td th:text="${e.email}"></td>
+                <td th:text="${e.enabled==true?'Active':'Inactive'}"></td>
+                <td>
+                    <a th:href="@{|${base}/edit/${e.username}|}">Edit</a>
+                    <a th:href="@{|${base}/delete/${e.username}|}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="card-footer" th:with="n=${page.number}, t=${page.totalPages}">
+    	<a th:href="@{|${base}/index?p=${0}|}">First</a>
+    	<a th:href="@{|${base}/index?p=${n-1}|}">Prev</a>
+    	<a th:href="@{|${base}/index?p=${n+1}|}">Next</a>
+    	<a th:href="@{|${base}/index?p=${t-1}|}">Last</a>
+    </div>
+</div>
+
+
+</html>

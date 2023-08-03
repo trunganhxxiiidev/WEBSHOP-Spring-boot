@@ -1,5 +1,7 @@
 package ta.webshop.jpa.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class OrderStateServiceImpl implements OrderStateService {
 	public OrderState findById(int id) {
 		
 		return dao.getById(id);
+	}
+
+	@Override
+	public List<OrderState> findAll() {
+		return dao.findAll();
 	}
 
 	

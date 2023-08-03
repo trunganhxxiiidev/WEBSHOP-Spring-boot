@@ -33,9 +33,12 @@ public class WebSecurityConfig {
 		 http
 	        .httpBasic()
 	            .and()
-	        .authorizeRequests()
+	        .authorizeRequests().
+	        requestMatchers("/admin/category/delete", "/admin/user/**").hasRole("ADMIN")
+	        .requestMatchers("/admin/report/**").hasRole("SUPER")
+	        .requestMatchers("/admin/**").hasAnyRole("STAFF", "SUPER", "ADMIN")
 	                .requestMatchers(
-	                		"/order/**")
+	                		"/order/**","/account/change-password","/account/edit-profile")
 	                .authenticated()
 	                .anyRequest().permitAll();
 		 
